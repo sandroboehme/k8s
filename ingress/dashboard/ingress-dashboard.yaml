@@ -5,10 +5,10 @@ metadata:
  namespace: kube-system
 spec:
  rules:
-   — host: dashboard.diffus.org
+   - host: dashboard.diffus.org
      http:
        paths:
-         — path: /
+         - path: /
            backend:
              serviceName: kubernetes-dashboard
              servicePort: 80
