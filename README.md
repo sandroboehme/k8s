@@ -7,6 +7,10 @@ https is work in progress
 
 SDS is not implemented yet
 
+RBAC is implemented too permissive via:
+https://github.com/ben-st/k8s/blob/master/RBAC/permissive-service-accounts
+i will fix this in the near future with correct service accounts
+
 You can try via the hello-world app if everything is setup correctly.
 
 Steps you need to accomplish in order for this to work:
