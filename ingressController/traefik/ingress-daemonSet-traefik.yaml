@@ -15,10 +15,22 @@ spec:
     spec:
       hostNetwork: true
       terminationGracePeriodSeconds: 60
+      volumes:
+        - name: config
+          configMap:
+            name: traefik-conf
+        - name: acme
+          hostPath:
+            path: /srv/configs/acme.json
       containers:
       - image: containous/traefik
         name: traefik-ingress-lb
         imagePullPolicy: Always
+        volumeMounts:
+          - mountPath: "/config"
+            name: "config"
+          - mountPath: "/acme/acme.json"
+            name: "acme"
         ports:
           - name: http
             containerPort: 80
@@ -31,18 +43,9 @@ spec:
             hostPort: 8080
           - name: admin
             containerPort: 8081
-#        volumeMounts:
-#          - mountPath: /etc/traefik
-#            name: traefik-volume
-#            readOnly: false
         args:
+        - --configfile=/config/traefik.toml
         - --web
         - -d
         - --web.address=:8081
         - --kubernetes
-#        - --configFile=/etc/traefik/traefik.toml
-#        - --logLevel=DEBUG
-#      volumes:
-#        - hostPath:
-#            path: /etc/traefik
-#          name: traefik-volume
